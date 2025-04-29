@@ -1,18 +1,602 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="baralho.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Cartas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>REBELOSST | Estética Automotiva Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset moderno e variáveis */
+        :root {
+            --primary: #d10000;
+            --primary-dark: #680000;
+            --secondary: #1a1a1a;
+            --accent: #ffcc00;
+            --light: #ffffff;
+            --dark: #0a0a0a;
+            --overlay: rgba(0, 0, 0, 0.7);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section com imagem em destaque */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            max-height: 1200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            z-index: 1;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            animation: zoomEffect 20s infinite alternate;
+        }
+
+        @keyframes zoomEffect {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            color: var(--light);
+            letter-spacing: 2px;
+        }
+
+        .slogan {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-weight: 400;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Menu moderno */
+        .menu-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            z-index: 1001;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--overlay);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 1rem 0;
+            padding: 0.5rem 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Conteúdo principal */
+        .main-content {
+            position: relative;
+            background-color: var(--dark);
+            z-index: 2;
+        }
+
+        /* Seções */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: var(--light);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .section-text {
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Seção Sobre */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .card-title i {
+            font-size: 1.8rem;
+        }
+
+        /* Seção Contato */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card:hover {
+            background: rgba(209, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+
+        .contact-link:hover {
+            color: var(--accent);
+        }
+
+        /* Botão flutuante */
+        .float-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 25px rgba(209, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .float-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(209, 0, 0, 0.4);
+        }
+
+        .float-btn i {
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Efeitos de scroll */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        [data-animate="left"] { transform: translateX(-50px); }
+        [data-animate="right"] { transform: translateX(50px); }
+
+        [data-animate].animated {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 500px;
+            }
+
+            .menu-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .float-btn {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 400px;
+            }
+
+            .nav-link {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>CARTAS</h1>
-        <div id="Div1" class="carta">         </div>
-        <div id="Div2" class="carta">         </div>
-        <div id="Div3" class="carta">         </div>
-        <div id="Div4" class="carta">         </div>
-        <div id="Div5" class="carta">         </div>
+    <!-- Hero Section com imagem em destaque (ÚNICA ALTERAÇÃO REALIZADA) -->
+    <section class="hero">
+        <img src="https://wallpapercave.com/wp/wp10629525.jpg" alt="Carro esportivo vermelho REBELOSST" class="hero-background">
+        <div class="hero-content" data-animate>
+            <h1 class="logo">REBELOSST</h1>
+            <p class="slogan">Excelência em estética automotiva - Seu carro merece o melhor</p>
+        </div>
+    </section>
+
+    <!-- Menu Mobile -->
+    <button class="menu-toggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav class="nav-menu">
+        <a href="#sobre" class="nav-link">Sobre Nós</a>
+        <a href="#servicos" class="nav-link">Serviços</a>
+        <a href="#galeria" class="nav-link">Galeria</a>
+        <a href="#contato" class="nav-link">Contato</a>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Seção Sobre -->
+        <section id="sobre" class="section">
+            <h2 class="section-title" data-animate>SOBRE NÓS</h2>
+            
+            <div class="about-grid">
+                <div class="about-card" data-animate="left">
+                    <h3 class="card-title"><i class="fas fa-medal"></i> Missão</h3>
+                    <p class="section-text">Na REBELOSST, transformamos veículos com técnicas premium de estética automotiva, preservando sua beleza e valor com produtos de alta qualidade e mão de obra especializada.</p>
+                </div>
+                
+                <div class="about-card" data-animate>
+                    <h3 class="card-title"><i class="fas fa-eye"></i> Visão</h3>
+                    <p class="section-text">Ser referência em estética automotiva, reconhecida pela excelência no atendimento e qualidade dos serviços, superando as expectativas dos clientes mais exigentes.</p>
+                </div>
+                
+                <div class="about-card" data-animate="right">
+                    <h3 class="card-title"><i class="fas fa-gem"></i> Valores</h3>
+                    <p class="section-text">Paixão por automóveis, atenção aos detalhes, honestidade, transparência e compromisso com a satisfação total do cliente.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Serviços -->
+        <section id="servicos" class="section" style="background: var(--secondary);">
+            <h2 class="section-title" data-animate>NOSSOS SERVIÇOS</h2>
+            <p class="section-text" data-animate style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+                Oferecemos um portfólio completo de serviços premium para manter seu veículo sempre impecável
+            </p>
+            
+            <div class="about-grid">
+                <div class="about-card" data-animate="left">
+                    <h3 class="card-title"><i class="fas fa-spa"></i> Detalhamento</h3>
+                    <p class="section-text">Serviço completo de revitalização que inclui polimento, cristalização e proteção da pintura, deixando seu carro com aparência de novo.</p>
+                </div>
+                
+                <div class="about-card" data-animate>
+                    <h3 class="card-title"><i class="fas fa-tint"></i> Higienização</h3>
+                    <p class="section-text">Limpeza profunda do interior do veículo com produtos específicos para cada tipo de material, eliminando ácaros, bactérias e odores.</p>
+                </div>
+                
+                <div class="about-card" data-animate="right">
+                    <h3 class="card-title"><i class="fas fa-shield-alt"></i> Proteção</h3>
+                    <p class="section-text">Aplicação de cerâmicas e nano revestimentos que protegem a pintura contra raios UV, chuva ácida e outros agentes externos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contato -->
+        <section id="contato" class="section">
+            <h2 class="section-title" data-animate>CONTATO</h2>
+            <p class="section-text" data-animate style="text-align: center;">
+                Entre em contato conosco e agende uma avaliação para seu veículo
+            </p>
+            
+            <div class="contact-methods">
+                <div class="contact-card" data-animate="left">
+                    <i class="fab fa-whatsapp contact-icon"></i>
+                    <h3>WhatsApp</h3>
+                    <a href="https://wa.me/5547991579267" class="contact-link">+55 47 99157-9267</a>
+                    <a href="https://wa.me/5547991676357" class="contact-link">+55 47 99167-6357</a>
+                </div>
+                
+                <div class="contact-card" data-animate>
+                    <i class="fab fa-instagram contact-icon"></i>
+                    <h3>Instagram</h3>
+                    <a href="https://www.instagram.com/estetica.rebelostt" class="contact-link">@estetica.rebelostt</a>
+                </div>
+                
+                <div class="contact-card" data-animate="right">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <h3>Localização</h3>
+                    <p class="section-text">Rua São Paulo 2655, Blumenau - SC</p>
+                    <a href="#" class="contact-link">Ver no mapa</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Botão Flutuante -->
+    <a href="https://wa.me/5547992727561" target="_blank" class="float-btn">
+        <i class="fab fa-whatsapp"></i> AGENDAR
+    </a>
+
+    <!-- Footer -->
+    <footer data-animate>
+        <div class="footer-logo">REBELOSST</div>
+        <p class="section-text">Excelência em estética automotiva</p>
+        
+        <div class="social-links">
+            <a href="https://www.instagram.com/estetica.rebelostt" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/5547991579267" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://wa.me/5547991676357" class="social-link"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <p class="copyright">© 2025 REBELOSST. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Menu Mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Animação ao rolar
+        const animateElements = document.querySelectorAll('[data-animate]');
+        
+        const animateOnScroll = () => {
+            animateElements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('animated');
+                }
+            });
+        };
+
+        // Verificar animações ao carregar e ao rolar
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Efeito parallax suave
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        });
+    </script>
 </body>
 </html>
